@@ -58,5 +58,5 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [dev-dependencies]
-log = "0.4.22"
+log = "0.4.27"
 bump2version = "0.1.6"
