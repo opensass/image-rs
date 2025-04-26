@@ -1,6 +1,6 @@
 [package]
 name = "image-rs"
-version = "0.0.0"
+version = "0.0.1"
 edition = "2024"
 rust-version = "1.85"
 description = "🖼️ A highly customizable and optimized image component for WASM frameworks like Yew, Dioxus, and Leptos."
