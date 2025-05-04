@@ -16,4 +16,7 @@ pub mod dioxus;
 #[cfg(feature = "lep")]
 pub mod leptos;
 
-pub use common::{Decoding, Layout, ObjectFit, Position};
+pub use common::{
+    AriaLive, AriaPressed, CrossOrigin, Decoding, FetchPriority, Layout, Loading, ObjectFit,
+    Position, ReferrerPolicy,
+};

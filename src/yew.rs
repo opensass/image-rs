@@ -1,6 +1,9 @@
 #![doc = include_str!("../YEW.md")]
 
-use crate::common::{Decoding, Layout, ObjectFit, Position};
+use crate::common::{
+    AriaLive, AriaPressed, CrossOrigin, Decoding, FetchPriority, Layout, Loading, ObjectFit,
+    Position, ReferrerPolicy,
+};
 use gloo_net::http::Request;
 use wasm_bindgen_futures::spawn_local;
 use web_sys::IntersectionObserverEntry;
@@ -19,6 +22,9 @@ use yew::prelude::*;
 ///
 /// This component is highly flexible, providing support for multiple image layouts,
 /// object-fit, object-position, ARIA attributes, and more.
+///
+/// # See Also
+/// - [MDN img Element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img)
 #[derive(Properties, Clone, PartialEq)]
 pub struct ImageProps {
     /// The source URL of the image.
@@ -89,7 +95,7 @@ pub struct ImageProps {
     /// This controls whether the image should be loaded eagerly (immediately) or lazily
     /// (when it enters the viewport). Defaults to `false`.
     #[prop_or_default]
-    pub priority: bool,
+    pub loading: Loading,
 
     /// The placeholder attribute for the image.
     ///
@@ -104,7 +110,7 @@ pub struct ImageProps {
     /// actions that should happen after the image has been fully loaded, such as hiding
     /// a loading spinner. Defaults to a no-op.
     #[prop_or_default]
-    pub on_loading_complete: Callback<()>,
+    pub on_load: Callback<()>,
 
     // Advanced Props
     /// The object-fit attribute for the image.
@@ -186,6 +192,62 @@ pub struct ImageProps {
     #[prop_or_default]
     pub node_ref: NodeRef,
 
+    /// A list of one or more image sources for responsive loading.
+    ///
+    /// Defines multiple image resources for the browser to choose from, depending on screen size, resolution,
+    /// and other factors. Each source can include width (`w`) or pixel density (`x`) descriptors.
+    #[prop_or_default]
+    pub srcset: &'static str,
+
+    /// Cross-origin policy to use when fetching the image.
+    ///
+    /// Determines whether the image should be fetched with CORS enabled. Useful when the image needs to be accessed
+    /// in a `<canvas>` element. Accepts `anonymous` or `use-credentials`.
+    #[prop_or_default]
+    pub crossorigin: CrossOrigin,
+
+    /// Referrer policy to apply when fetching the image.
+    ///
+    /// Controls how much referrer information should be included with requests made for the image resource.
+    /// Common values include `no-referrer`, `origin`, `strict-origin-when-cross-origin`, etc.
+    #[prop_or_default]
+    pub referrerpolicy: ReferrerPolicy,
+
+    /// The fragment identifier of the image map to use.
+    ///
+    /// Associates the image with a `<map>` element, enabling clickable regions within the image. The value
+    /// should begin with `#` and match the `name` of the corresponding map element.
+    #[prop_or_default]
+    pub usemap: &'static str,
+
+    /// Indicates that the image is part of a server-side image map.
+    ///
+    /// When set, clicking the image will send the click coordinates to the server. Only allowed when the image
+    /// is inside an `<a>` element with a valid `href`.
+    #[prop_or_default]
+    pub ismap: bool,
+
+    /// Hints the browser about the priority of fetching this image.
+    ///
+    /// Helps the browser prioritize network resource loading. Accepts `high`, `low`, or `auto` (default).
+    /// See `HTMLImageElement.fetchPriority` for more.
+    #[prop_or_default]
+    pub fetchpriority: FetchPriority,
+
+    /// Identifier for tracking image performance timing.
+    ///
+    /// Registers the image with the `PerformanceElementTiming` API using the given string as its ID. Useful for
+    /// performance monitoring and analytics.
+    #[prop_or_default]
+    pub elementtiming: &'static str,
+
+    /// URL(s) to send Attribution Reporting requests for the image.
+    ///
+    /// Indicates that the browser should send an `Attribution-Reporting-Eligible` header with the image request.
+    /// Can be a boolean or a list of URLs for attribution registration on specified servers. Experimental feature.
+    #[prop_or_default]
+    pub attributionsrc: &'static str,
+
     /// Indicates the current state of the image in a navigation menu.
     ///
     /// Valid values are "page", "step", "location", "date", "time", "true", "false".
@@ -202,14 +264,14 @@ pub struct ImageProps {
 
     /// Indicates whether the content associated with the image is currently expanded or collapsed.
     ///
-    /// This is typically used for ARIA-based accessibility and is represented as "true" or "false".
+    /// This is typically used for ARIA-based accessibility and is represented as "true", "false", or "undefined".
     #[prop_or_default]
     pub aria_expanded: &'static str,
 
     /// Indicates whether the image is currently hidden from the user.
     ///
     /// This attribute is used for accessibility and indicates whether the image is visible
-    /// to the user or not. Valid values are "true" or "false".
+    /// to the user or not. Valid values are "true", "false", or "undefined".
     #[prop_or_default]
     pub aria_hidden: &'static str,
 
@@ -218,13 +280,13 @@ pub struct ImageProps {
     /// The value can be "off", "assertive", or "polite", helping assistive technologies
     /// determine how to handle updates to the content.
     #[prop_or_default]
-    pub aria_live: &'static str,
+    pub aria_live: AriaLive,
 
     /// Indicates whether the image is currently pressed or selected.
     ///
     /// This attribute can have values like "true", "false", "mixed", or "undefined".
     #[prop_or_default]
-    pub aria_pressed: &'static str,
+    pub aria_pressed: AriaPressed,
 
     /// ID of the element that the image controls or owns.
     ///
@@ -244,15 +306,14 @@ impl Default for ImageProps {
         ImageProps {
             src: "",
             alt: "Image",
-            width: "300",
-            height: "200",
+            width: "",
+            height: "",
             style: "",
             class: "",
             sizes: "",
             quality: "",
-            priority: false,
             placeholder: "empty",
-            on_loading_complete: Callback::noop(),
+            on_load: Callback::noop(),
             object_fit: ObjectFit::default(),
             object_position: Position::default(),
             on_error: Callback::noop(),
@@ -263,12 +324,21 @@ impl Default for ImageProps {
             layout: Layout::default(),
             node_ref: NodeRef::default(),
             fallback_src: "",
+            srcset: "",
+            crossorigin: CrossOrigin::default(),
+            loading: Loading::default(),
+            referrerpolicy: ReferrerPolicy::default(),
+            usemap: "",
+            ismap: false,
+            fetchpriority: FetchPriority::default(),
+            elementtiming: "",
+            attributionsrc: "",
             aria_current: "",
             aria_describedby: "",
             aria_expanded: "",
             aria_hidden: "",
-            aria_live: "",
-            aria_pressed: "",
+            aria_live: AriaLive::default(),
+            aria_pressed: AriaPressed::default(),
             aria_controls: "",
             aria_labelledby: "",
         }
@@ -299,7 +369,7 @@ impl Default for ImageProps {
 /// - **style**: Additional inline CSS styles (`&'static str`). Default: `""`.
 /// - **class**: Additional CSS classes (`&'static str`). Default: `""`.
 /// - **decoding**: Decoding strategy (`Decoding`). Default: `Decoding::Auto`.
-/// - **on_loading_complete**: Callback invoked when the image successfully loads (`Callback<()>`). Default: no-op.
+/// - **on_load**: Callback invoked when the image successfully loads (`Callback<()>`). Default: no-op.
 /// - **on_error**: Callback invoked if loading or fallback loading fails (`Callback<String>`). Default: no-op.
 /// - **node_ref**: Node reference for the underlying `img` element (`NodeRef`).
 /// - **ARIA attributes**: Full ARIA support for better accessibility (`aria_label`, `aria_hidden`, etc.).
@@ -414,17 +484,21 @@ impl Default for ImageProps {
 /// - **IntersectionObserver** is used for intelligent lazy loading.
 /// - **Caching** via `RequestCache::Reload` ensures fallback images are always fetched fresh if needed.
 /// - **Async/await** approach for fetch operations provides non-blocking fallback handling.
+///
+/// # See Also
+/// - [MDN img Element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img)
 #[function_component]
 pub fn Image(props: &ImageProps) -> Html {
     let mut props = props.clone();
     let img_ref = props.node_ref.clone();
 
     let img_ref_clone = img_ref.clone();
-    let on_loading_complete = props.on_loading_complete.clone();
+    let on_load = props.on_load.clone();
+    let on_load_call = props.on_load.clone();
 
     // Lazy Load Effect:
     // Waits until the image **scrolls into view**, then dynamically **sets the src** to start loading it.
-    // Triggers an optional `on_loading_complete` callback once loading is initiated.
+    // Triggers an optional `on_load` callback once loading is initiated.
     // Smart Optimization: Saves bandwidth and greatly improves page speed, especially for pages with **many images**!
     // 9000 IQ Move: Only load images users actually *scroll to*, no more wasting bytes, gg!
     use_effect_with(JsValue::from(props.src), move |_deps| {
@@ -434,7 +508,7 @@ pub fn Image(props: &ImageProps) -> Html {
                     if entry.is_intersecting() {
                         if let Some(img) = img_ref_clone.cast::<web_sys::HtmlImageElement>() {
                             img.set_src(props.src);
-                            on_loading_complete.emit(());
+                            on_load.emit(());
                         }
                     }
                 }
@@ -470,7 +544,7 @@ pub fn Image(props: &ImageProps) -> Html {
     // This informs your app that the image failed to load and auto replace the image.
     let fetch_data = {
         Callback::from(move |_| {
-            let loading_complete_callback = props.on_loading_complete.clone();
+            let loading_complete_callback = props.on_load.clone();
             let on_error_callback = props.on_error.clone();
             spawn_local(async move {
                 match Request::get(props.fallback_src)
@@ -535,6 +609,12 @@ pub fn Image(props: &ImageProps) -> Html {
         String::new()
     };
 
+    let onload = {
+        Callback::from(move |_| {
+            on_load_call.emit(());
+        })
+    };
+
     let layout = match props.layout {
         Layout::Fill => {
             html! {
@@ -546,7 +626,7 @@ pub fn Image(props: &ImageProps) -> Html {
                         height={props.height}
                         style={img_style}
                         class={props.class}
-                        loading={if props.priority { "eager" } else { "lazy" }}
+                        loading={props.loading.as_str()}
                         sizes={props.sizes}
                         quality={props.quality}
                         placeholder={props.placeholder}
@@ -559,11 +639,20 @@ pub fn Image(props: &ImageProps) -> Html {
                         aria-hidden={props.aria_hidden}
                         aria-current={props.aria_current}
                         aria-expanded={props.aria_expanded}
-                        aria-live={props.aria_live}
-                        aria-pressed={props.aria_pressed}
+                        aria-live={props.aria_live.as_str()}
+                        aria-pressed={props.aria_pressed.as_str()}
                         aria-controls={props.aria_controls}
                         onerror={fetch_data}
                         style={blur_style}
+                        crossorigin={props.crossorigin.as_str()}
+                        referrerpolicy={props.referrerpolicy.as_str()}
+                        fetchpriority={props.fetchpriority.as_str()}
+                        attributionsrc={props.attributionsrc}
+                        onload={onload}
+                        elementtiming={props.elementtiming}
+                        srcset={props.srcset}
+                        ismap={props.ismap}
+                        usemap={props.usemap}
                     />
                 </span>
             }
@@ -587,9 +676,9 @@ pub fn Image(props: &ImageProps) -> Html {
                             height={props.height}
                             style={img_style}
                             class={props.class}
-                            loading={if props.priority { "eager" } else { "lazy" }}
                             sizes={props.sizes}
                             quality={props.quality}
+                            loading={props.loading.as_str()}
                             placeholder={props.placeholder}
                             decoding={props.decoding.as_str()}
                             ref={props.node_ref}
@@ -600,11 +689,20 @@ pub fn Image(props: &ImageProps) -> Html {
                             aria-hidden={props.aria_hidden}
                             aria-current={props.aria_current}
                             aria-expanded={props.aria_expanded}
-                            aria-live={props.aria_live}
-                            aria-pressed={props.aria_pressed}
+                            aria-live={props.aria_live.as_str()}
+                            aria-pressed={props.aria_pressed.as_str()}
                             aria-controls={props.aria_controls}
                             onerror={fetch_data}
                             style={blur_style}
+                            crossorigin={props.crossorigin.as_str()}
+                            referrerpolicy={props.referrerpolicy.as_str()}
+                            fetchpriority={props.fetchpriority.as_str()}
+                            attributionsrc={props.attributionsrc}
+                            onload={onload}
+                            elementtiming={props.elementtiming}
+                            srcset={props.srcset}
+                            ismap={props.ismap}
+                            usemap={props.usemap}
                         />
                     </span>
                 </span>
@@ -621,8 +719,8 @@ pub fn Image(props: &ImageProps) -> Html {
                             height={props.height}
                             style={img_style}
                             class={props.class}
-                            loading={if props.priority { "eager" } else { "lazy" }}
                             sizes={props.sizes}
+                            loading={props.loading.as_str()}
                             quality={props.quality}
                             placeholder={props.placeholder}
                             decoding={props.decoding.as_str()}
@@ -634,11 +732,20 @@ pub fn Image(props: &ImageProps) -> Html {
                             aria-hidden={props.aria_hidden}
                             aria-current={props.aria_current}
                             aria-expanded={props.aria_expanded}
-                            aria-live={props.aria_live}
-                            aria-pressed={props.aria_pressed}
+                            aria-live={props.aria_live.as_str()}
+                            aria-pressed={props.aria_pressed.as_str()}
                             aria-controls={props.aria_controls}
                             onerror={fetch_data}
                             style={blur_style}
+                            crossorigin={props.crossorigin.as_str()}
+                            referrerpolicy={props.referrerpolicy.as_str()}
+                            fetchpriority={props.fetchpriority.as_str()}
+                            attributionsrc={props.attributionsrc}
+                            onload={onload}
+                            elementtiming={props.elementtiming}
+                            srcset={props.srcset}
+                            ismap={props.ismap}
+                            usemap={props.usemap}
                         />
                     </span>
                     <img
@@ -660,9 +767,9 @@ pub fn Image(props: &ImageProps) -> Html {
                         height={props.height}
                         style={img_style}
                         class={props.class}
-                        loading={if props.priority { "eager" } else { "lazy" }}
                         sizes={props.sizes}
                         quality={props.quality}
+                        loading={props.loading.as_str()}
                         placeholder={props.placeholder}
                         decoding={props.decoding.as_str()}
                         ref={props.node_ref}
@@ -673,11 +780,20 @@ pub fn Image(props: &ImageProps) -> Html {
                         aria-hidden={props.aria_hidden}
                         aria-current={props.aria_current}
                         aria-expanded={props.aria_expanded}
-                        aria-live={props.aria_live}
-                        aria-pressed={props.aria_pressed}
+                        aria-live={props.aria_live.as_str()}
+                        aria-pressed={props.aria_pressed.as_str()}
                         aria-controls={props.aria_controls}
                         onerror={fetch_data}
                         style={blur_style}
+                        crossorigin={props.crossorigin.as_str()}
+                        referrerpolicy={props.referrerpolicy.as_str()}
+                        fetchpriority={props.fetchpriority.as_str()}
+                        attributionsrc={props.attributionsrc}
+                        onload={onload}
+                        elementtiming={props.elementtiming}
+                        srcset={props.srcset}
+                        ismap={props.ismap}
+                        usemap={props.usemap}
                     />
                 </span>
             }
@@ -693,10 +809,10 @@ pub fn Image(props: &ImageProps) -> Html {
                         height={props.height}
                         style={img_style}
                         class={props.class}
-                        loading={if props.priority { "eager" } else { "lazy" }}
                         sizes={props.sizes}
                         quality={props.quality}
                         placeholder={props.placeholder}
+                        loading={props.loading.as_str()}
                         decoding={props.decoding.as_str()}
                         ref={props.node_ref}
                         role="img"
@@ -706,11 +822,20 @@ pub fn Image(props: &ImageProps) -> Html {
                         aria-hidden={props.aria_hidden}
                         aria-current={props.aria_current}
                         aria-expanded={props.aria_expanded}
-                        aria-live={props.aria_live}
-                        aria-pressed={props.aria_pressed}
+                        aria-live={props.aria_live.as_str()}
+                        aria-pressed={props.aria_pressed.as_str()}
                         aria-controls={props.aria_controls}
                         onerror={fetch_data}
                         style={blur_style}
+                        crossorigin={props.crossorigin.as_str()}
+                        referrerpolicy={props.referrerpolicy.as_str()}
+                        fetchpriority={props.fetchpriority.as_str()}
+                        attributionsrc={props.attributionsrc}
+                        onload={onload}
+                        elementtiming={props.elementtiming}
+                        srcset={props.srcset}
+                        ismap={props.ismap}
+                        usemap={props.usemap}
                     />
                 </span>
             }
@@ -726,7 +851,7 @@ pub fn Image(props: &ImageProps) -> Html {
                         height="100%"
                         style={img_style}
                         class={props.class}
-                        loading={if props.priority { "eager" } else { "lazy" }}
+                        loading={props.loading.as_str()}
                         sizes={props.sizes}
                         quality={props.quality}
                         placeholder={props.placeholder}
@@ -739,11 +864,20 @@ pub fn Image(props: &ImageProps) -> Html {
                         aria-hidden={props.aria_hidden}
                         aria-current={props.aria_current}
                         aria-expanded={props.aria_expanded}
-                        aria-live={props.aria_live}
-                        aria-pressed={props.aria_pressed}
+                        aria-live={props.aria_live.as_str()}
+                        aria-pressed={props.aria_pressed.as_str()}
                         aria-controls={props.aria_controls}
                         onerror={fetch_data}
                         style={blur_style}
+                        crossorigin={props.crossorigin.as_str()}
+                        referrerpolicy={props.referrerpolicy.as_str()}
+                        fetchpriority={props.fetchpriority.as_str()}
+                        attributionsrc={props.attributionsrc}
+                        onload={onload}
+                        elementtiming={props.elementtiming}
+                        srcset={props.srcset}
+                        ismap={props.ismap}
+                        usemap={props.usemap}
                     />
                 </span>
             }
@@ -759,7 +893,7 @@ pub fn Image(props: &ImageProps) -> Html {
                         height={props.height}
                         style={img_style}
                         class={props.class}
-                        loading={if props.priority { "eager" } else { "lazy" }}
+                        loading={props.loading.as_str()}
                         sizes={props.sizes}
                         quality={props.quality}
                         placeholder={props.placeholder}
@@ -772,11 +906,20 @@ pub fn Image(props: &ImageProps) -> Html {
                         aria-hidden={props.aria_hidden}
                         aria-current={props.aria_current}
                         aria-expanded={props.aria_expanded}
-                        aria-live={props.aria_live}
-                        aria-pressed={props.aria_pressed}
+                        aria-live={props.aria_live.as_str()}
+                        aria-pressed={props.aria_pressed.as_str()}
                         aria-controls={props.aria_controls}
                         onerror={fetch_data}
                         style={blur_style}
+                        crossorigin={props.crossorigin.as_str()}
+                        referrerpolicy={props.referrerpolicy.as_str()}
+                        fetchpriority={props.fetchpriority.as_str()}
+                        attributionsrc={props.attributionsrc}
+                        onload={onload}
+                        elementtiming={props.elementtiming}
+                        srcset={props.srcset}
+                        ismap={props.ismap}
+                        usemap={props.usemap}
                     />
                 </span>
             }

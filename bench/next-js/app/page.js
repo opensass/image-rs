@@ -5,7 +5,7 @@ export default function Home() {
   const images = Array.from({ length: 10000 }, (_, i) => (
     <Image
       key={i.toFixed()}
-      src={"/800.svg"}
+      src={"/image.jpg"}
       alt={`Photo ${i}`}
       width={400}
       height={600}

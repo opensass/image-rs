@@ -1,5 +1,5 @@
 use image_rs::yew::Image;
-use image_rs::{Decoding, Layout, ObjectFit, Position};
+use image_rs::{Decoding, Layout, ObjectFit, Position, Loading, AriaLive, AriaPressed};
 use yew::prelude::*;
 
 #[function_component(Example1)]
@@ -76,7 +76,7 @@ pub fn example6() -> Html {
 
 #[function_component(Example7)]
 pub fn example7() -> Html {
-    html! { <Image src="https://placehold.co/400x300" alt="Priority Image" priority=true /> }
+    html! { <Image src="https://placehold.co/400x300" alt="Priority Image" loading={Loading::Eager} /> }
 }
 
 #[function_component(Example8)]
@@ -100,10 +100,10 @@ pub fn example10() -> Html {
             aria_labelledby="imageLabel"
             aria_describedby="imageDescription"
             aria_hidden="false"
-            aria_live="polite"
+            aria_live={AriaLive::Polite}
             aria_current="page"
             aria_expanded="false"
-            aria_pressed="false"
+            aria_pressed={AriaPressed::False}
             aria_controls="imageControl"
             decoding={Decoding::Sync}
             layout={Layout::Intrinsic}
@@ -321,6 +321,7 @@ pub fn example6() -> Html {
                     >
                         { r#"
 use image_rs::yew::Image;
+use image_rs::Loading;
 use yew::prelude::*;
 
 #[function_component(Example7)]
@@ -329,7 +330,7 @@ pub fn example7() -> Html {
         <Image
             src="https://placehold.co/400x300"
             alt="Priority Image"
-            priority={true}
+            loading={Loading::Eager}
         />
     }
 }"# }
@@ -385,7 +386,7 @@ pub fn example9() -> Html {
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
                         { r#"use image_rs::yew::Image;
-use image_rs::{Layout, Decoding};
+use image_rs::{Layout, Decoding, AriaLive, AriaPressed};
 use yew::prelude::*;
 
 #[function_component(Example10)]
@@ -397,10 +398,10 @@ pub fn example10() -> Html {
             aria_labelledby="imageLabel"
             aria_describedby="imageDescription"
             aria_hidden="false"
-            aria_live="polite"
+            aria_live={AriaLive::Polite}
             aria_current="page"
             aria_expanded="false"
-            aria_pressed="false"
+            aria_pressed={AriaPressed::False}
             aria_controls="imageControl"
             decoding={Decoding::Sync}
             layout={Layout::Intrinsic}
