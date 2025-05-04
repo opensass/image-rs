@@ -207,3 +207,135 @@ impl ObjectFit {
         }
     }
 }
+
+#[derive(Clone, PartialEq, Default)]
+pub enum CrossOrigin {
+    Anonymous,
+    UseCredentials,
+    #[default]
+    None,
+}
+
+impl CrossOrigin {
+    pub fn as_str(&self) -> Option<&'static str> {
+        match self {
+            CrossOrigin::Anonymous => Some("anonymous"),
+            CrossOrigin::UseCredentials => Some("use-credentials"),
+            CrossOrigin::None => None,
+        }
+    }
+}
+
+#[derive(Clone, PartialEq, Default)]
+pub enum FetchPriority {
+    High,
+    Low,
+    #[default]
+    Auto,
+}
+
+impl FetchPriority {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            FetchPriority::High => "high",
+            FetchPriority::Low => "low",
+            FetchPriority::Auto => "auto",
+        }
+    }
+}
+
+#[derive(Clone, PartialEq, Default)]
+pub enum Loading {
+    Eager,
+    Lazy,
+    #[default]
+    Auto,
+}
+
+impl Loading {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Loading::Eager => "eager",
+            Loading::Lazy => "lazy",
+            Loading::Auto => "auto",
+        }
+    }
+}
+
+/// Defines the referrer policy to use when fetching a resource.
+///
+/// Controls how much referrer information should be included with the request.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub enum ReferrerPolicy {
+    /// No Referer header will be sent.
+    NoReferrer,
+    /// The Referer header will not be sent to origins without TLS (HTTPS).
+    NoReferrerWhenDowngrade,
+    /// Only the origin of the document is sent.
+    Origin,
+    /// Send full referrer on same-origin, but only origin on cross-origin.
+    OriginWhenCrossOrigin,
+    /// Referrer will be sent for same-origin only.
+    SameOrigin,
+    /// Send the origin only, and only when security level is preserved.
+    StrictOrigin,
+    /// Default: full URL for same-origin, origin only for cross-origin HTTPS, nothing for HTTP.
+    #[default]
+    StrictOriginWhenCrossOrigin,
+    /// Unsafe: send origin and path (not fragment/password/username), even to insecure origins.
+    UnsafeUrl,
+}
+
+impl ReferrerPolicy {
+    /// Returns the string representation of the referrer policy, as used in HTML.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ReferrerPolicy::NoReferrer => "no-referrer",
+            ReferrerPolicy::NoReferrerWhenDowngrade => "no-referrer-when-downgrade",
+            ReferrerPolicy::Origin => "origin",
+            ReferrerPolicy::OriginWhenCrossOrigin => "origin-when-cross-origin",
+            ReferrerPolicy::SameOrigin => "same-origin",
+            ReferrerPolicy::StrictOrigin => "strict-origin",
+            ReferrerPolicy::StrictOriginWhenCrossOrigin => "strict-origin-when-cross-origin",
+            ReferrerPolicy::UnsafeUrl => "unsafe-url",
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub enum AriaLive {
+    #[default]
+    Off,
+    Polite,
+    Assertive,
+}
+
+impl AriaLive {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            AriaLive::Off => "off",
+            AriaLive::Polite => "polite",
+            AriaLive::Assertive => "assertive",
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub enum AriaPressed {
+    True,
+    False,
+    Mixed,
+    #[default]
+    Undefined,
+}
+
+impl AriaPressed {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            AriaPressed::True => "true",
+            AriaPressed::False => "false",
+            AriaPressed::Mixed => "mixed",
+            AriaPressed::Undefined => "undefined",
+        }
+    }
+}

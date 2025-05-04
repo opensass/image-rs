@@ -24,7 +24,7 @@
 | Framework | Live Demo |
 | --- | --- |
 | Yew | [![Netlify Status](https://api.netlify.com/api/v1/badges/a0efc7e9-f20e-4dd9-93e1-c8f4fde7506f/deploy-status)](https://image-rs.netlify.app) |
-| Dioxus | TODO |
+| Dioxus | [![Netlify Status](https://api.netlify.com/api/v1/badges/a0efc7e9-f20e-4dd9-93e1-c8f4fde7506f/deploy-status)](https://image-dio.netlify.app) |
 | Leptos | TODO |
 
 ## 📜 Intro
@@ -46,7 +46,7 @@ The following features make Image RS a must-have for modern WASM apps:
 <!-- absolute url for docs.rs cause YEW.md is not included in crate -->
 Refer to [our guide](https://github.com/opensass/image-rs/blob/main/YEW.md) to integrate this component into your Yew app.
 
-## 🧬 Dioxus Usage (TODO)
+## 🧬 Dioxus Usage
 
 <!-- absolute url for docs.rs cause DIOXUS.md is not included in crate -->
 Refer to [our guide](https://github.com/opensass/image-rs/blob/main/DIOXUS.md) to integrate this component into your Dioxus app.
@@ -55,55 +55,6 @@ Refer to [our guide](https://github.com/opensass/image-rs/blob/main/DIOXUS.md) t
 
 <!-- absolute url for docs.rs cause LEPTOS.md is not included in crate -->
 Refer to [our guide](https://github.com/opensass/image-rs/blob/main/LEPTOS.md) to integrate this component into your Leptos app.
-
-## 📈 Benchmark
-
-1. Open browser DevTools (Press F12) > **Lighthouse** tab.
-1. Record page load by clicking	"Analyze Page Load".
-1. Observe:
-   - **First Contentful Paint (FCP)**
-   - **Largest Contentful Paint (LCP)**
-   - **Time to Interactive (TTI)**
-   - **Total network transfer size**
-   - **Memory usage**
-
-### 🚀 Summary
-
-| Feature | Yew Image RS | Next.js Image |
-|:-------|:-------------|:--------------|
-| Native Rust+Wasm | ✅ | ❌ |
-| Built-in Image Optimization | ✅ | ✅ |
-| SSR/SEO Friendly | ✅ | ✅ |
-| Fine-grained DOM Control | ✅ | ❌ |
-| Smaller JS Payload | ✅ | ✅ |
-
-### 📊 Performance Results
-
-When loading **10 images**, **Yew Image RS** and **Next.js Image** are **on par**:
-
-| Metric | Yew (Wasm) | Next.js |
-|:------|:-----------|:--------|
-| Performance Score (Lighthouse) | 100 | 100 |
-| Memory Usage (Heap) | ~8 MB | ~8 MB |
-
-However, when scaling up to **10,000 images loaded simultaneously**:
-
-| Metric | Yew (Wasm) | Next.js |
-|:------|:-----------|:--------|
-| Performance Score (Lighthouse) | 64 | ❌ (Lighthouse fails) |
-| Memory Usage (Heap) | ~78 MB | ~83 MB |
-| Scrolling Smoothness | Very Smooth | Laggy |
-
-**Key observations:**
-- **Wasm** (Yew) handles large DOM updates much better than **JavaScript**.
-- **Memory usage** is slightly lower with **Wasm**.
-- **Next.js** site **failed Lighthouse audit** at 10,000 images (due to TTI timeout).
-- **Smoothness** is significantly better with Yew under heavy load.
-
-### 🛠️ Future Improvements
-
-- **Image RS** is working on **automatic image optimization**.
-- **Progressive loading** and **lazy hydration** strategies are being researched for even better large-scale performance.
 
 ## 🤝 Contributions
 
