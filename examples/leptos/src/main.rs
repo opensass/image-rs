@@ -186,10 +186,10 @@ pub fn App() -> impl IntoView {
                     <pre
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
-                        { r#"use image_rs::yew::Image;
-use yew::prelude::*;
+                        { r#"use image_rs::leptos::Image;
+use leptos::{*, prelude::*};
 
-#[function_component(Example1)]
+#[component]
 pub fn Example1() -> impl IntoView {
     view! {
         <Image
@@ -206,11 +206,11 @@ pub fn Example1() -> impl IntoView {
                     <pre
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
-                        { r#"use image_rs::yew::Image;
+                        { r#"use image_rs::leptos::Image;
 use image_rs::Layout;
-use yew::prelude::*;
+use leptos::{*, prelude::*};
 
-#[function_component(Example2)]
+#[component]
 pub fn Example2() -> impl IntoView {
     view! {
         <Image
@@ -230,11 +230,11 @@ pub fn Example2() -> impl IntoView {
                     <pre
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
-                        { r#"use image_rs::yew::Image;
+                        { r#"use image_rs::leptos::Image;
 use image_rs::Layout;
-use yew::prelude::*;
+use leptos::{*, prelude::*};
 
-#[function_component(Example3)]
+#[component]
 pub fn Example3() -> impl IntoView {
     view! {
         <Image
@@ -254,11 +254,11 @@ pub fn Example3() -> impl IntoView {
                     <pre
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
-                        { r#"use image_rs::yew::Image;
+                        { r#"use image_rs::leptos::Image;
 use image_rs::Layout;
-use yew::prelude::*;
+use leptos::{*, prelude::*};
 
-#[function_component(Example4)]
+#[component]
 pub fn Example4() -> impl IntoView {
     view! {
         <Image
@@ -280,11 +280,11 @@ pub fn Example4() -> impl IntoView {
                     <pre
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
-                        { r#"use image_rs::yew::Image;
+                        { r#"use image_rs::leptos::Image;
 use image_rs::{Layout, ObjectFit};
-use yew::prelude::*;
+use leptos::{*, prelude::*};
 
-#[function_component(Example5)]
+#[component]
 pub fn Example5() -> impl IntoView {
     view! {
         <Image
@@ -306,11 +306,10 @@ pub fn Example5() -> impl IntoView {
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
                         { r#"
-use image_rs::yew::Image;
-use yew::prelude::*;
-use yew::Callback;
+use image_rs::leptos::Image;
+use leptos::{*, prelude::*};
 
-#[function_component(Example6)]
+#[component]
 pub fn Example6() -> impl IntoView {
     view! {
         <Image
@@ -330,11 +329,11 @@ pub fn Example6() -> impl IntoView {
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
                         { r#"
-use image_rs::yew::Image;
+use image_rs::leptos::Image;
 use image_rs::Loading;
-use yew::prelude::*;
+use leptos::{*, prelude::*};
 
-#[function_component(Example7)]
+#[component]
 pub fn Example7() -> impl IntoView {
     view! {
         <Image
@@ -352,11 +351,11 @@ pub fn Example7() -> impl IntoView {
                     <pre
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
-                        { r#"use image_rs::yew::Image;
+                        { r#"use image_rs::leptos::Image;
 use image_rs::Decoding;
-use yew::prelude::*;
+use leptos::{*, prelude::*};
 
-#[function_component(Example8)]
+#[component]
 pub fn Example8() -> impl IntoView {
     view! {
         <Image
@@ -374,10 +373,10 @@ pub fn Example8() -> impl IntoView {
                     <pre
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
-                        { r#"use image_rs::yew::Image;
-use yew::prelude::*;
+                        { r#"use image_rs::leptos::Image;
+use leptos::{*, prelude::*};
 
-#[function_component(Example9)]
+#[component]
 pub fn Example9() -> impl IntoView {
     view! {
         <Image
@@ -395,11 +394,11 @@ pub fn Example9() -> impl IntoView {
 //                     <pre
 //                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
 //                     >
-//                         { r#"use image_rs::yew::Image;
+//                         { r#"use image_rs::leptos::Image;
 // use image_rs::{Layout, Decoding, AriaLive, AriaPressed};
-// use yew::prelude::*;
+// use leptos::{*, prelude::*};
 
-// #[function_component(Example10)]
+// #[component]
 // pub fn Example10() -> impl IntoView {
 //     view! {
 //         <Image
@@ -428,10 +427,10 @@ pub fn Example9() -> impl IntoView {
                     <pre
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
-                        { r#"use image_rs::yew::Image;
-use yew::prelude::*;
+                        { r#"use image_rs::leptos::Image;
+use leptos::{*, prelude::*};
             
-#[function_component(Example11)]
+#[component]
 pub fn Example11() -> impl IntoView {
     view! {
         <Image
@@ -449,10 +448,10 @@ pub fn Example11() -> impl IntoView {
                     <pre
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
-                        { r#"use image_rs::yew::Image;
-use yew::prelude::*;
+                        { r#"use image_rs::leptos::Image;
+use leptos::{*, prelude::*};
             
-#[function_component(Example12)]
+#[component]
 pub fn Example12() -> impl IntoView {
     view! {
         <Image
@@ -470,11 +469,11 @@ pub fn Example12() -> impl IntoView {
                     <pre
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
-                        { r#"use image_rs::yew::Image;
+                        { r#"use image_rs::leptos::Image;
 use image_rs::Layout;
-use yew::prelude::*;
+use leptos::{*, prelude::*};
             
-#[function_component(Example13)]
+#[component]
 pub fn Example13() -> impl IntoView {
     view! {
         <Image
@@ -495,10 +494,10 @@ pub fn Example13() -> impl IntoView {
                     <pre
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
-                        { r#"use image_rs::yew::Image;
-use yew::prelude::*;
+                        { r#"use image_rs::leptos::Image;
+use leptos::{*, prelude::*};
             
-#[function_component(Example14)]
+#[component]
 pub fn Example14() -> impl IntoView {
     view! {
         <Image
@@ -516,11 +515,11 @@ pub fn Example14() -> impl IntoView {
                     <pre
                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
                     >
-                        { r#"use image_rs::yew::Image;
+                        { r#"use image_rs::leptos::Image;
 use image_rs::{Layout, Position, ObjectFit};
-use yew::prelude::*;
+use leptos::{*, prelude::*};
             
-#[function_component(Example15)]
+#[component]
 pub fn Example15() -> impl IntoView {
     view! {
         <Image
