@@ -615,6 +615,8 @@ pub fn Image(props: &ImageProps) -> Html {
         })
     };
 
+    let full_style = format!("{} {}", blur_style, img_style);
+
     let layout = match props.layout {
         Layout::Fill => {
             html! {
@@ -624,7 +626,7 @@ pub fn Image(props: &ImageProps) -> Html {
                         alt={props.alt}
                         width={props.width}
                         height={props.height}
-                        style={img_style}
+                        style={full_style}
                         class={props.class}
                         loading={props.loading.as_str()}
                         sizes={props.sizes}
@@ -643,7 +645,6 @@ pub fn Image(props: &ImageProps) -> Html {
                         aria-pressed={props.aria_pressed.as_str()}
                         aria-controls={props.aria_controls}
                         onerror={fetch_data}
-                        style={blur_style}
                         crossorigin={props.crossorigin.as_str()}
                         referrerpolicy={props.referrerpolicy.as_str()}
                         fetchpriority={props.fetchpriority.as_str()}
@@ -674,7 +675,7 @@ pub fn Image(props: &ImageProps) -> Html {
                             alt={props.alt}
                             width={props.width}
                             height={props.height}
-                            style={img_style}
+                            style={full_style}
                             class={props.class}
                             sizes={props.sizes}
                             quality={props.quality}
@@ -717,7 +718,7 @@ pub fn Image(props: &ImageProps) -> Html {
                             alt={props.alt}
                             width={props.width}
                             height={props.height}
-                            style={img_style}
+                            style={full_style}
                             class={props.class}
                             sizes={props.sizes}
                             loading={props.loading.as_str()}
@@ -765,7 +766,7 @@ pub fn Image(props: &ImageProps) -> Html {
                         alt={props.alt}
                         width={props.width}
                         height={props.height}
-                        style={img_style}
+                        style={full_style}
                         class={props.class}
                         sizes={props.sizes}
                         quality={props.quality}
@@ -784,7 +785,6 @@ pub fn Image(props: &ImageProps) -> Html {
                         aria-pressed={props.aria_pressed.as_str()}
                         aria-controls={props.aria_controls}
                         onerror={fetch_data}
-                        style={blur_style}
                         crossorigin={props.crossorigin.as_str()}
                         referrerpolicy={props.referrerpolicy.as_str()}
                         fetchpriority={props.fetchpriority.as_str()}
@@ -807,7 +807,7 @@ pub fn Image(props: &ImageProps) -> Html {
                         alt={props.alt}
                         width={props.width}
                         height={props.height}
-                        style={img_style}
+                        style={full_style}
                         class={props.class}
                         sizes={props.sizes}
                         quality={props.quality}
@@ -826,7 +826,6 @@ pub fn Image(props: &ImageProps) -> Html {
                         aria-pressed={props.aria_pressed.as_str()}
                         aria-controls={props.aria_controls}
                         onerror={fetch_data}
-                        style={blur_style}
                         crossorigin={props.crossorigin.as_str()}
                         referrerpolicy={props.referrerpolicy.as_str()}
                         fetchpriority={props.fetchpriority.as_str()}
@@ -849,7 +848,7 @@ pub fn Image(props: &ImageProps) -> Html {
                         alt={props.alt}
                         width="100%"
                         height="100%"
-                        style={img_style}
+                        style={full_style}
                         class={props.class}
                         loading={props.loading.as_str()}
                         sizes={props.sizes}
@@ -868,7 +867,6 @@ pub fn Image(props: &ImageProps) -> Html {
                         aria-pressed={props.aria_pressed.as_str()}
                         aria-controls={props.aria_controls}
                         onerror={fetch_data}
-                        style={blur_style}
                         crossorigin={props.crossorigin.as_str()}
                         referrerpolicy={props.referrerpolicy.as_str()}
                         fetchpriority={props.fetchpriority.as_str()}
@@ -891,7 +889,7 @@ pub fn Image(props: &ImageProps) -> Html {
                         alt={props.alt}
                         width={props.width}
                         height={props.height}
-                        style={img_style}
+                        style={full_style}
                         class={props.class}
                         loading={props.loading.as_str()}
                         sizes={props.sizes}
@@ -910,7 +908,6 @@ pub fn Image(props: &ImageProps) -> Html {
                         aria-pressed={props.aria_pressed.as_str()}
                         aria-controls={props.aria_controls}
                         onerror={fetch_data}
-                        style={blur_style}
                         crossorigin={props.crossorigin.as_str()}
                         referrerpolicy={props.referrerpolicy.as_str()}
                         fetchpriority={props.fetchpriority.as_str()}
