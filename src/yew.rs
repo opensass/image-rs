@@ -694,7 +694,6 @@ pub fn Image(props: &ImageProps) -> Html {
                             aria-pressed={props.aria_pressed.as_str()}
                             aria-controls={props.aria_controls}
                             onerror={fetch_data}
-                            style={blur_style}
                             crossorigin={props.crossorigin.as_str()}
                             referrerpolicy={props.referrerpolicy.as_str()}
                             fetchpriority={props.fetchpriority.as_str()}
@@ -737,7 +736,6 @@ pub fn Image(props: &ImageProps) -> Html {
                             aria-pressed={props.aria_pressed.as_str()}
                             aria-controls={props.aria_controls}
                             onerror={fetch_data}
-                            style={blur_style}
                             crossorigin={props.crossorigin.as_str()}
                             referrerpolicy={props.referrerpolicy.as_str()}
                             fetchpriority={props.fetchpriority.as_str()}

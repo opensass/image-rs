@@ -7,7 +7,11 @@ use gloo_net::http::Request;
 use leptos::callback::Callback;
 use leptos::task::spawn_local;
 use leptos::{html::*, prelude::*, *};
-use web_sys::RequestCache;
+use web_sys::IntersectionObserverEntry;
+use web_sys::js_sys;
+use web_sys::wasm_bindgen::JsCast;
+use web_sys::wasm_bindgen::closure::Closure;
+use web_sys::{IntersectionObserver, IntersectionObserverInit, RequestCache};
 
 // Comment out aria attrs cause of: tachys-0.2.0/src/html/attribute/mod.rs:593:1:
 // not yet implemented: adding more than 26 attributes is not supported
@@ -141,6 +145,46 @@ pub fn Image(
 ) -> impl IntoView {
     let (img_src, set_img_src) = signal(src);
 
+    Effect::new(move || {
+        let callback = Closure::wrap(Box::new(
+            move |entries: js_sys::Array, _observer: IntersectionObserver| {
+                if let Some(entry) = entries.get(0).dyn_ref::<IntersectionObserverEntry>() {
+                    if entry.is_intersecting() {
+                        if let Some(node) = node_ref.get() {
+                            if let Some(img) = node.dyn_ref::<web_sys::HtmlImageElement>() {
+                                img.set_src(src);
+                                if let Some(cb) = on_load {
+                                    cb.run(());
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+        )
+            as Box<dyn FnMut(js_sys::Array, IntersectionObserver)>);
+
+        let options = IntersectionObserverInit::new();
+        options.set_threshold(&js_sys::Array::of1(&0.1.into()));
+
+        let observer =
+            IntersectionObserver::new_with_options(callback.as_ref().unchecked_ref(), &options)
+                .expect("Failed to create IntersectionObserver");
+
+        if let Some(element) = node_ref.get() {
+            if let Ok(img) = element.clone().dyn_into::<web_sys::HtmlElement>() {
+                observer.observe(&img);
+            }
+        }
+
+        let observer_clone = observer.clone();
+        let _cleanup = move || {
+            observer_clone.disconnect();
+        };
+
+        callback.forget();
+    });
+
     let onload = move |_| {
         if let Some(cb) = on_load {
             cb.run(());
@@ -247,6 +291,7 @@ pub fn Image(
             </span>
         }
         .into_any(),
+
         Layout::Responsive => {
             let ratio = height.parse::<f64>().unwrap_or(1.0) / width.parse::<f64>().unwrap_or(1.0);
             let padding = format!("{}%", ratio * 100.0);
@@ -291,8 +336,173 @@ pub fn Image(
             }
             .into_any()
         }
-        _ => view! {
+
+        Layout::Intrinsic => view! {
+            <span style="display:inline-block; position:relative; max-width:100%;">
+                <span style="max-width:100%;">
+                    <img
+                        node_ref=node_ref
+                        src=move || img_src.get()
+                        alt=alt
+                        class=class
+                        width=width
+                        height=height
+                        style=full_style.clone()
+                        sizes=sizes
+                        srcset=srcset
+                        decoding=decoding.as_str()
+                        crossorigin=crossorigin.as_str()
+                        referrerpolicy=referrerpolicy.as_str()
+                        loading=loading.as_str()
+                        fetchpriority=fetchpriority.as_str()
+                        aria_placeholder=placeholder
+                        on:load=onload
+                        on:error=onerror
+                        role="img"
+                        // aria-label=alt
+                        // aria-labelledby=aria_labelledby
+                        // aria-describedby=aria_describedby
+                        // aria-hidden=aria_hidden
+                        // aria-current=aria_current
+                        // aria-expanded=aria_expanded
+                        // aria-live=aria_live.as_str()
+                        // aria-pressed=aria_pressed.as_str()
+                        // aria-controls=aria_controls
+                        usemap=usemap
+                        ismap=ismap
+                        elementtiming=elementtiming
+                        attributionsrc=attributionsrc
+                    />
+                </span>
+                <img
+                    src=blur_data_url
+                    style="display:none;"
+                    alt=alt
+                    aria-hidden="true"
+                />
+            </span>
+        }
+        .into_any(),
+
+        Layout::Fixed => view! {
             <span style="display:inline-block; position:relative;">
+                <img
+                    node_ref=node_ref
+                    src=move || img_src.get()
+                    alt=alt
+                    class=class
+                    width=width
+                    height=height
+                    style=full_style.clone()
+                    sizes=sizes
+                    srcset=srcset
+                    decoding=decoding.as_str()
+                    crossorigin=crossorigin.as_str()
+                    referrerpolicy=referrerpolicy.as_str()
+                    loading=loading.as_str()
+                    fetchpriority=fetchpriority.as_str()
+                    aria_placeholder=placeholder
+                    on:load=onload
+                    on:error=onerror
+                    role="img"
+                    // aria-label=alt
+                    // aria-labelledby=aria_labelledby
+                    // aria-describedby=aria_describedby
+                    // aria-hidden=aria_hidden
+                    // aria-current=aria_current
+                    // aria-expanded=aria_expanded
+                    // aria-live=aria_live.as_str()
+                    // aria-pressed=aria_pressed.as_str()
+                    // aria-controls=aria_controls
+                    usemap=usemap
+                    ismap=ismap
+                    elementtiming=elementtiming
+                    attributionsrc=attributionsrc
+                />
+            </span>
+        }
+        .into_any(),
+
+        Layout::Auto => view! {
+            <span style="display:inline-block; position:relative;">
+                <img
+                    node_ref=node_ref
+                    src=move || img_src.get()
+                    alt=alt
+                    class=class
+                    width=width
+                    height=height
+                    style=full_style.clone()
+                    sizes=sizes
+                    srcset=srcset
+                    decoding=decoding.as_str()
+                    crossorigin=crossorigin.as_str()
+                    referrerpolicy=referrerpolicy.as_str()
+                    loading=loading.as_str()
+                    fetchpriority=fetchpriority.as_str()
+                    aria_placeholder=placeholder
+                    on:load=onload
+                    on:error=onerror
+                    role="img"
+                    // aria-label=alt
+                    // aria-labelledby=aria_labelledby
+                    // aria-describedby=aria_describedby
+                    // aria-hidden=aria_hidden
+                    // aria-current=aria_current
+                    // aria-expanded=aria_expanded
+                    // aria-live=aria_live.as_str()
+                    // aria-pressed=aria_pressed.as_str()
+                    // aria-controls=aria_controls
+                    usemap=usemap
+                    ismap=ismap
+                    elementtiming=elementtiming
+                    attributionsrc=attributionsrc
+                />
+            </span>
+        }
+        .into_any(),
+
+        Layout::Stretch => view! {
+            <span style="display:block; width:100%; height:100%; position:relative;">
+                <img
+                    node_ref=node_ref
+                    src=move || img_src.get()
+                    alt=alt
+                    class=class
+                    width="100%"
+                    height="100%"
+                    style=full_style.clone()
+                    sizes=sizes
+                    srcset=srcset
+                    decoding=decoding.as_str()
+                    crossorigin=crossorigin.as_str()
+                    referrerpolicy=referrerpolicy.as_str()
+                    loading=loading.as_str()
+                    fetchpriority=fetchpriority.as_str()
+                    aria_placeholder=placeholder
+                    on:load=onload
+                    on:error=onerror
+                    role="img"
+                    // aria-label=alt
+                    // aria-labelledby=aria_labelledby
+                    // aria-describedby=aria_describedby
+                    // aria-hidden=aria_hidden
+                    // aria-current=aria_current
+                    // aria-expanded=aria_expanded
+                    // aria-live=aria_live.as_str()
+                    // aria-pressed=aria_pressed.as_str()
+                    // aria-controls=aria_controls
+                    usemap=usemap
+                    ismap=ismap
+                    elementtiming=elementtiming
+                    attributionsrc=attributionsrc
+                />
+            </span>
+        }
+        .into_any(),
+
+        Layout::ScaleDown => view! {
+            <span style="display:inline-block; position:relative; max-width:100%; max-height:100%;">
                 <img
                     node_ref=node_ref
                     src=move || img_src.get()
