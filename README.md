@@ -18,14 +18,11 @@
 
 ## 🎬 Demo
 
-<!-- absolute url for docs.rs cause assets is excluded from crate -->
-![image-rs-demo](https://raw.githubusercontent.com/opensass/image-rs/refs/heads/main/assets/demo.gif)
-
 | Framework | Live Demo |
 | --- | --- |
 | Yew | [![Netlify Status](https://api.netlify.com/api/v1/badges/a0efc7e9-f20e-4dd9-93e1-c8f4fde7506f/deploy-status)](https://image-rs.netlify.app) |
 | Dioxus | [![Netlify Status](https://api.netlify.com/api/v1/badges/a0efc7e9-f20e-4dd9-93e1-c8f4fde7506f/deploy-status)](https://image-dio.netlify.app) |
-| Leptos | TODO |
+| Leptos | [![Netlify Status](https://api.netlify.com/api/v1/badges/a0efc7e9-f20e-4dd9-93e1-c8f4fde7506f/deploy-status)](https://image-lep.netlify.app) |
 
 ## 📜 Intro
 
@@ -51,7 +48,7 @@ Refer to [our guide](https://github.com/opensass/image-rs/blob/main/YEW.md) to i
 <!-- absolute url for docs.rs cause DIOXUS.md is not included in crate -->
 Refer to [our guide](https://github.com/opensass/image-rs/blob/main/DIOXUS.md) to integrate this component into your Dioxus app.
 
-## 🌱 Leptos Usage (TODO)
+## 🌱 Leptos Usage
 
 <!-- absolute url for docs.rs cause LEPTOS.md is not included in crate -->
 Refer to [our guide](https://github.com/opensass/image-rs/blob/main/LEPTOS.md) to integrate this component into your Leptos app.

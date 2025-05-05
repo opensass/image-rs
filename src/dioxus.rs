@@ -441,9 +441,8 @@ pub fn Image(props: ImageProps) -> Element {
             class: "{props.class}",
             // TODO: Till Dioxus support this attribute
             // sizes: "{props.sizes}",
-            // decoding: "{props.decoding}",
-            // TODO:
-            // loading: "{props.loading}",
+            decoding: props.decoding.as_str(),
+            loading: props.loading.as_str(),
             // TODO
             // node_ref: node_ref,
             style: "{full_style}",
@@ -457,7 +456,6 @@ pub fn Image(props: ImageProps) -> Element {
             aria_controls: "{props.aria_controls}",
             aria_labelledby: "{props.aria_labelledby}",
             role: "img",
-            style: "{blur_style}",
             crossorigin: props.crossorigin.as_str(),
             referrerpolicy: props.referrerpolicy.as_str(),
             // TODO
