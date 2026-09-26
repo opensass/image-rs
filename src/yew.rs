@@ -489,7 +489,7 @@ impl Default for ImageProps {
 /// - [MDN img Element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img)
 #[function_component]
 pub fn Image(props: &ImageProps) -> Html {
-    let mut props = props.clone();
+    let props = props.clone();
     let img_ref = props.node_ref.clone();
 
     let img_ref_clone = img_ref.clone();
@@ -557,7 +557,7 @@ pub fn Image(props: &ImageProps) -> Html {
                             let json_result = response.json::<serde_json::Value>();
                             match json_result.await {
                                 Ok(_data) => {
-                                    props.src = props.fallback_src;
+                                    // props.src = props.fallback_src;
                                     loading_complete_callback.emit(());
                                 }
                                 Err(_err) => {

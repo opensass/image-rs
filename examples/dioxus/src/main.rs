@@ -191,6 +191,8 @@ pub fn LandingPage() -> Element {
     rsx! {
         div {
             class: "m-6 min-h-screen flex flex-col items-center justify-center",
+            style: "color: #5e5c7f; background-color: #303030; font-family: 'Rubik', sans-serif; overflow-x: hidden;",
+
             h1 { class: "text-3xl font-bold mb-8 text-white", "Image RS Dioxus Examples" }
             div {
                 class: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8",

@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 console_error_panic_hook = "0.1.7"
 image-rs = { path = "../../", features = ["lep"] }
-leptos = { version = "0.8.0", features = ["csr"] }
+leptos = { version = "0.8.20", features = ["csr"] }
 wasm-logger = "0.2.0"
 
 [profile]

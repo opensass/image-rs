@@ -9,10 +9,10 @@ edition = "2021"
 [dependencies]
 image-rs = { path = "../../", features = ["yew"] }
 console_error_panic_hook = "0.1.7"
-log = "0.4.22"
+log = "0.4.34"
 wasm-logger = "0.2.0"
-yew = { version = "0.21.0", features = ["csr"], default-features = false }
-yew-router = { version = "0.18.0", default-features = false }
+yew = { version = "0.23.0", features = ["csr"], default-features = false }
+yew-router = { version = "0.20.0", default-features = false }
 
 [profile.release]
 codegen-units = 1

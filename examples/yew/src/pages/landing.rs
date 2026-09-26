@@ -1,5 +1,5 @@
 use image_rs::yew::Image;
-use image_rs::{Decoding, Layout, ObjectFit, Position, Loading, AriaLive, AriaPressed};
+use image_rs::{AriaLive, AriaPressed, Decoding, Layout, Loading, ObjectFit, Position};
 use yew::prelude::*;
 
 #[function_component(Example1)]
@@ -76,7 +76,9 @@ pub fn example6() -> Html {
 
 #[function_component(Example7)]
 pub fn example7() -> Html {
-    html! { <Image src="https://placehold.co/400x300" alt="Priority Image" loading={Loading::Eager} /> }
+    html! {
+        <Image src="https://placehold.co/400x300" alt="Priority Image" loading={Loading::Eager} />
+    }
 }
 
 #[function_component(Example8)]

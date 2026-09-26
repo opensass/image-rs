@@ -1,7 +1,7 @@
 use image_rs::leptos::Image;
-use image_rs::{Decoding, Layout, ObjectFit, Position, Loading};
-use leptos::{*, prelude::*};
+use image_rs::{Decoding, Layout, Loading, ObjectFit, Position};
 use leptos::logging::log;
+use leptos::{prelude::*, *};
 
 #[component]
 pub fn Example1() -> impl IntoView {
@@ -178,15 +178,15 @@ pub fn Example15() -> impl IntoView {
 #[component]
 pub fn App() -> impl IntoView {
     view! {
-        <div class="m-6 min-h-screen flex flex-col items-center justify-center">
-            <h1 class="text-3xl font-bold mb-8 text-white">{ "Image RS Leptos Examples" }</h1>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-bold mb-2">{ "Basic Image" }</h2>
-                    <pre
-                        class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-                    >
-                        { r#"use image_rs::leptos::Image;
+            <div class="m-6 min-h-screen flex flex-col items-center justify-center">
+                <h1 class="text-3xl font-bold mb-8 text-white">{ "Image RS Leptos Examples" }</h1>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                    <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-2">{ "Basic Image" }</h2>
+                        <pre
+                            class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+                        >
+                            { r#"use image_rs::leptos::Image;
 use leptos::{*, prelude::*};
 
 #[component]
@@ -198,15 +198,15 @@ pub fn Example1() -> impl IntoView {
         />
     }
 }"# }
-                    </pre>
-                    <Example1 />
-                </div>
-                <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-bold mb-2">{ "Fixed Layout" }</h2>
-                    <pre
-                        class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-                    >
-                        { r#"use image_rs::leptos::Image;
+                        </pre>
+                        <Example1 />
+                    </div>
+                    <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-2">{ "Fixed Layout" }</h2>
+                        <pre
+                            class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+                        >
+                            { r#"use image_rs::leptos::Image;
 use image_rs::Layout;
 use leptos::{*, prelude::*};
 
@@ -222,15 +222,15 @@ pub fn Example2() -> impl IntoView {
         />
     }
 }"# }
-                    </pre>
-                    <Example2 />
-                </div>
-                <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-bold mb-2">{ "Responsive Layout" }</h2>
-                    <pre
-                        class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-                    >
-                        { r#"use image_rs::leptos::Image;
+                        </pre>
+                        <Example2 />
+                    </div>
+                    <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-2">{ "Responsive Layout" }</h2>
+                        <pre
+                            class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+                        >
+                            { r#"use image_rs::leptos::Image;
 use image_rs::Layout;
 use leptos::{*, prelude::*};
 
@@ -246,15 +246,15 @@ pub fn Example3() -> impl IntoView {
         />
     }
 }"# }
-                    </pre>
-                    <Example3 />
-                </div>
-                <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-bold mb-2">{ "Blur Placeholder" }</h2>
-                    <pre
-                        class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-                    >
-                        { r#"use image_rs::leptos::Image;
+                        </pre>
+                        <Example3 />
+                    </div>
+                    <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-2">{ "Blur Placeholder" }</h2>
+                        <pre
+                            class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+                        >
+                            { r#"use image_rs::leptos::Image;
 use image_rs::Layout;
 use leptos::{*, prelude::*};
 
@@ -272,15 +272,15 @@ pub fn Example4() -> impl IntoView {
         />
     }
 }"# }
-                    </pre>
-                    <Example4 />
-                </div>
-                <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-bold mb-2">{ "Object Fit: Cover" }</h2>
-                    <pre
-                        class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-                    >
-                        { r#"use image_rs::leptos::Image;
+                        </pre>
+                        <Example4 />
+                    </div>
+                    <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-2">{ "Object Fit: Cover" }</h2>
+                        <pre
+                            class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+                        >
+                            { r#"use image_rs::leptos::Image;
 use image_rs::{Layout, ObjectFit};
 use leptos::{*, prelude::*};
 
@@ -297,15 +297,15 @@ pub fn Example5() -> impl IntoView {
         />
     }
 }"# }
-                    </pre>
-                    <Example5 />
-                </div>
-                <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-bold mb-2">{ "Error Handling (Press F12)" }</h2>
-                    <pre
-                        class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-                    >
-                        { r#"
+                        </pre>
+                        <Example5 />
+                    </div>
+                    <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-2">{ "Error Handling (Press F12)" }</h2>
+                        <pre
+                            class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+                        >
+                            { r#"
 use image_rs::leptos::Image;
 use leptos::{*, prelude::*};
 
@@ -320,15 +320,15 @@ pub fn Example6() -> impl IntoView {
         />
     }
 }"# }
-                    </pre>
-                    <Example6 />
-                </div>
-                <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-bold mb-2">{ "Priority Loading" }</h2>
-                    <pre
-                        class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-                    >
-                        { r#"
+                        </pre>
+                        <Example6 />
+                    </div>
+                    <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-2">{ "Priority Loading" }</h2>
+                        <pre
+                            class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+                        >
+                            { r#"
 use image_rs::leptos::Image;
 use image_rs::Loading;
 use leptos::{*, prelude::*};
@@ -343,15 +343,15 @@ pub fn Example7() -> impl IntoView {
         />
     }
 }"# }
-                    </pre>
-                    <Example7 />
-                </div>
-                <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-bold mb-2">{ "Async Decoding" }</h2>
-                    <pre
-                        class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-                    >
-                        { r#"use image_rs::leptos::Image;
+                        </pre>
+                        <Example7 />
+                    </div>
+                    <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-2">{ "Async Decoding" }</h2>
+                        <pre
+                            class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+                        >
+                            { r#"use image_rs::leptos::Image;
 use image_rs::Decoding;
 use leptos::{*, prelude::*};
 
@@ -365,15 +365,15 @@ pub fn Example8() -> impl IntoView {
         />
     }
 }"# }
-                    </pre>
-                    <Example8 />
-                </div>
-                <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-bold mb-2">{ "Quality Setting" }</h2>
-                    <pre
-                        class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-                    >
-                        { r#"use image_rs::leptos::Image;
+                        </pre>
+                        <Example8 />
+                    </div>
+                    <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-2">{ "Quality Setting" }</h2>
+                        <pre
+                            class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+                        >
+                            { r#"use image_rs::leptos::Image;
 use leptos::{*, prelude::*};
 
 #[component]
@@ -386,48 +386,48 @@ pub fn Example9() -> impl IntoView {
         />
     }
 }"# }
-                    </pre>
-                    <Example9 />
-                </div>
-//                 <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-//                     <h2 class="text-xl font-bold mb-2">{ "ARIA Attributes" }</h2>
-//                     <pre
-//                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-//                     >
-//                         { r#"use image_rs::leptos::Image;
-// use image_rs::{Layout, Decoding, AriaLive, AriaPressed};
-// use leptos::{*, prelude::*};
+                        </pre>
+                        <Example9 />
+                    </div>
+    //                 <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+    //                     <h2 class="text-xl font-bold mb-2">{ "ARIA Attributes" }</h2>
+    //                     <pre
+    //                         class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+    //                     >
+    //                         { r#"use image_rs::leptos::Image;
+    // use image_rs::{Layout, Decoding, AriaLive, AriaPressed};
+    // use leptos::{*, prelude::*};
 
-// #[component]
-// pub fn Example10() -> impl IntoView {
-//     view! {
-//         <Image
-//             src="https://placehold.co/500x300"
-//             alt="Accessible Image"
-//             aria_labelledby="imageLabel"
-//             aria_describedby="imageDescription"
-//             aria_hidden="false"
-//             aria_live={AriaLive::Polite}
-//             aria_current="page"
-//             aria_expanded="false"
-//             aria_pressed={AriaPressed::False}
-//             aria_controls="imageControl"
-//             decoding={Decoding::Sync}
-//             layout={Layout::Intrinsic}
-//             width="500"
-//             height="300"
-//         />
-//     }
-// }"# }
-//                     </pre>
-//                     <Example10 />
-//                 </div>
-                <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-bold mb-2">{ "Custom Style" }</h2>
-                    <pre
-                        class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-                    >
-                        { r#"use image_rs::leptos::Image;
+    // #[component]
+    // pub fn Example10() -> impl IntoView {
+    //     view! {
+    //         <Image
+    //             src="https://placehold.co/500x300"
+    //             alt="Accessible Image"
+    //             aria_labelledby="imageLabel"
+    //             aria_describedby="imageDescription"
+    //             aria_hidden="false"
+    //             aria_live={AriaLive::Polite}
+    //             aria_current="page"
+    //             aria_expanded="false"
+    //             aria_pressed={AriaPressed::False}
+    //             aria_controls="imageControl"
+    //             decoding={Decoding::Sync}
+    //             layout={Layout::Intrinsic}
+    //             width="500"
+    //             height="300"
+    //         />
+    //     }
+    // }"# }
+    //                     </pre>
+    //                     <Example10 />
+    //                 </div>
+                    <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-2">{ "Custom Style" }</h2>
+                        <pre
+                            class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+                        >
+                            { r#"use image_rs::leptos::Image;
 use leptos::{*, prelude::*};
             
 #[component]
@@ -440,15 +440,15 @@ pub fn Example11() -> impl IntoView {
         />
     }
 }"# }
-                    </pre>
-                    <Example11 />
-                </div>
-                <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-bold mb-2">{ "Custom Class" }</h2>
-                    <pre
-                        class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-                    >
-                        { r#"use image_rs::leptos::Image;
+                        </pre>
+                        <Example11 />
+                    </div>
+                    <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-2">{ "Custom Class" }</h2>
+                        <pre
+                            class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+                        >
+                            { r#"use image_rs::leptos::Image;
 use leptos::{*, prelude::*};
             
 #[component]
@@ -461,15 +461,15 @@ pub fn Example12() -> impl IntoView {
         />
     }
 }"# }
-                    </pre>
-                    <Example12 />
-                </div>
-                <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-bold mb-2">{ "Lazy Boundary" }</h2>
-                    <pre
-                        class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-                    >
-                        { r#"use image_rs::leptos::Image;
+                        </pre>
+                        <Example12 />
+                    </div>
+                    <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-2">{ "Lazy Boundary" }</h2>
+                        <pre
+                            class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+                        >
+                            { r#"use image_rs::leptos::Image;
 use image_rs::Layout;
 use leptos::{*, prelude::*};
             
@@ -486,15 +486,15 @@ pub fn Example13() -> impl IntoView {
         />
     }
 }"# }
-                    </pre>
-                    <Example13 />
-                </div>
-                <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-bold mb-2">{ "Unoptimized" }</h2>
-                    <pre
-                        class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-                    >
-                        { r#"use image_rs::leptos::Image;
+                        </pre>
+                        <Example13 />
+                    </div>
+                    <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-2">{ "Unoptimized" }</h2>
+                        <pre
+                            class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+                        >
+                            { r#"use image_rs::leptos::Image;
 use leptos::{*, prelude::*};
             
 #[component]
@@ -507,15 +507,15 @@ pub fn Example14() -> impl IntoView {
         />
     }
 }"# }
-                    </pre>
-                    <Example14 />
-                </div>
-                <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-bold mb-2">{ "Object Position" }</h2>
-                    <pre
-                        class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
-                    >
-                        { r#"use image_rs::leptos::Image;
+                        </pre>
+                        <Example14 />
+                    </div>
+                    <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-2">{ "Object Position" }</h2>
+                        <pre
+                            class="font-mono text-xs text-white p-4 bg-gray-800 mb-8 rounded-md w-full overflow-x-auto"
+                        >
+                            { r#"use image_rs::leptos::Image;
 use image_rs::{Layout, Position, ObjectFit};
 use leptos::{*, prelude::*};
             
@@ -533,12 +533,12 @@ pub fn Example15() -> impl IntoView {
         />
     }
 }"# }
-                    </pre>
-                    <Example15 />
+                        </pre>
+                        <Example15 />
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
 }
 
 fn main() {
