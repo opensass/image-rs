@@ -18,9 +18,5 @@ export default function Home() {
     />
   ));
 
-  return (
-    <div className={styles.imageGrid}>
-      {images}
-    </div>
-  );
+  return <div className={styles.imageGrid}>{images}</div>;
 }

@@ -1,5 +1,5 @@
 module.exports = {
-    experimental: {
-      urlImports: ['https://placehold.co/'],
-    },
-  }
+  experimental: {
+    urlImports: ["https://placehold.co/"],
+  },
+};
