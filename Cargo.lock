@@ -162,9 +162,9 @@ dependencies = [
 
 [[package]]
 name = "bump2version"
-version = "0.2.2"
+version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "99f1226fdf72f9e4ec27b6b6d341e66a7882d26ad83dd4a8db66feb27c3c6b4c"
+checksum = "795da791f66fd91398f09b7cd140ad9bc75ac37d5a531f755823599a23b54d4f"
 dependencies = [
  "anyhow",
  "gix",
@@ -3544,7 +3544,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -3956,7 +3956,7 @@ dependencies = [
  "getrandom 0.4.3",
  "once_cell",
  "rustix",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
